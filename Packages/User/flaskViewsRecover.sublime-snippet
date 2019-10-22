@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/recover/<int:id>', methods=['GET', 'POST'])
+def recover(id):
+	${2:register} = ${3:Class}.query.get(id)
+	if ${2:register}.estatus == 'B':
+		${2:register}.recover()
+		flash(f"${4:title} {${2:register}.${5:name}} recuperada/o.", 'success')
+	return redirect(url_for('${1:decorator}.detail', id=id))
+
+
+]]></content>
+	<tabTrigger>flaskViewsRecover</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

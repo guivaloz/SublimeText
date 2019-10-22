@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/edit.html' as edit with context %}
+{% import 'macros/form.html' as f with context %}
+
+{% block title %}${1:Plural}{% endblock %}
+
+{% block description %}Modificar ${2:singular}.{% endblock %}
+
+{% block content %}
+        <div class="mb-3 border-bottom">
+            <h2 class="h2">${1:Plural}</h2>
+        </div>
+		<div class="card content-card">
+			<div class="card-header">Modificar ${2:singular}</div>
+			<div class="card-body">
+			{% set form_kwargs = {'id': ${4:entity}.key.id} %}
+			{% call f.form_tag('${3:decorator}.edit', fid='${5:editEntityForm}', **form_kwargs) %}
+				{% call f.form_group(form.nombre) %}{% endcall %}
+				{% call f.form_group(form.notas, rows='4') %}{% endcall %}
+				{{ edit.buttons() }}
+			{% endcall %}
+			</div>
+		</div>
+{% endblock %}
+
+{% block scripts %}
+	{% call edit.script_jquery_document_ready() %}
+		{{ edit.script_btnsubmit('${5:editEntityForm}') }}
+	{% endcall %}
+{% endblock %}
+
+]]></content>
+	<tabTrigger>dsTemplatesEdit</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/detail.html' as detail with context %}
+
+{% block title %}${1:Plural}{% endblock %}
+
+{% block description %}Detalle de ${2:singular}.{% endblock %}
+
+{% block content %}
+        <div class="mb-3 border-bottom">
+            <h2 class="h2">${1:Plural}</h2>
+        </div>
+		<div class="card content-card">
+			<div class="card-header">Detalle de ${2:singular}</div>
+			<div class="card-body">
+				<dl class="row">
+					{{ detail.property('Nombre', ${4:entity}.nombre) }}
+					{{ detail.property('Notas', ${4:entity}.notas) }}
+				</dl>
+			</div>
+			{% if '${5:ModuloAdmin}' in current_user.roles %}
+			<div class="card-footer">
+				<a class="btn btn-warning" href="{{ url_for('${3:decorator}.edit', id=${4:entity}.key.id) }}" role="button">Modificar</a>
+			</div>
+			{% endif %}
+		</div>
+{% endblock %}
+
+]]></content>
+	<tabTrigger>dsTemplatesDetail</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/edit.html' as edit with context %}
+{% import 'macros/form.html' as f with context %}
+
+{% block title %}${1:Title}{% endblock %}
+
+{% block description %}Modificar el/la ${1:Title}.{% endblock %}
+
+{% block content %}
+		{{ edit.breadcrumb(blueprint='${2:blueprint}', id=${3:instance}.id, title='${1:Title}') }}
+		<div class="card">
+			<div class="card-header">Modificar {{ ${3:instance}.nombre }}</div>
+			<div class="card-body">
+			{% set form_kwargs = {'id': ${3:instance}.id} %}
+			{% call f.form_tag('${2:blueprint}.edit', **form_kwargs) %}
+				{% call f.form_group(form.nombre) %}{% endcall %}
+				{% call f.form_group(form.notas, rows='4') %}{% endcall %}
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			{% endcall %}
+			</div>
+		</div>
+{% endblock %}
+
+]]></content>
+	<tabTrigger>flaskTemplatesEdit</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

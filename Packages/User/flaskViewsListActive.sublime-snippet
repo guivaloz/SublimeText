@@ -1,0 +1,16 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}')
+def list_active():
+	estatus = 'A'
+	${2:query} = ${3:Class}.query. \
+		filter(${3:Class}.estatus == estatus). \
+		order_by(${3:Class}.${4:column_for_sort}).all()
+	actions = { 'status': estatus, 'new': True }
+	return render_template('${1:decorator}/list.html', ${2:query}=${2:query}, actions=actions)
+
+
+]]></content>
+	<tabTrigger>flaskViewsListActive</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

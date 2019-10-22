@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+	${2:register} = ${3:Class}.query.get(id)
+	form = ${4:ClassForm}()
+	if form.validate_on_submit():
+		form.populate_obj(${2:register})
+		${2:register}.save()
+		flash(f"${5:title} {${2:register}.${6:name}} modificado/a.", 'success')
+		return redirect(url_for('${1:decorator}.detail', id=id))
+	form.process(obj=${2:register})
+	return render_template('${1:decorator}/edit.html', form=form, ${2:register}=${2:register})
+
+
+]]></content>
+	<tabTrigger>flaskViewsEdit</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

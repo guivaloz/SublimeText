@@ -1,0 +1,36 @@
+<snippet>
+	<content><![CDATA[
+from flask import Blueprint, flash, redirect, render_template, url_for
+from flask_login import login_required
+
+from ${1:app}.blueprints.${2:decorator}.forms import ${3:ClassForm}
+from ${1:app}.blueprints.${2:decorator}.models import ${4:Class}
+
+${2:decorator} = Blueprint('${2:decorator}', __name__, template_folder='templates')
+
+
+@${2:decorator}.before_request
+@login_required
+def before_request():
+	pass
+
+
+# snippet:flaskViewsListActive
+
+# snippet:flaskViewsListDeleted
+
+# snippet:flaskViewsDetail
+
+# snippet:flaskViewsNew
+
+# snippet:flaskViewsEdit
+
+# snippet:flaskViewsDelete
+
+# snippet:flaskViewsRecover
+
+
+]]></content>
+	<tabTrigger>flaskViews</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

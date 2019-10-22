@@ -1,0 +1,77 @@
+<snippet>
+	<content><![CDATA[
+class ${1:ClassEntity}(object):
+
+    def __init__(self):
+        self.ds = get_client()
+		self.key = None
+		self.uuid = None
+		self.creacion = None
+		self.nombre = None
+		self.notas = None
+
+    def set_properties(self, properties):
+        """ Definir propiedades después de obtener """
+        if 'uuid' in properties:
+            self.uuid = properties['uuid']
+        if 'creacion' in properties:
+            self.creacion = properties['creacion']
+        if 'nombre' in properties:
+            self.nombre = properties['nombre']
+        if 'notas' in properties:
+            self.notas = properties['notas']
+
+    def get(self, key):
+        """ Obtener una entidad a partir de su clave """
+        results = self.ds.get(key)
+        if results == None:
+            return(None)
+        self.key = key
+        self.set_properties(dict(results.items()))
+        return(self)
+
+    def read(self, id):
+        """ Obtener una entidad a partir de su id """
+        self.key = self.ds.key('${2:kind}', int(id))
+        results = self.ds.get(self.key)
+        if results == None:
+            return(None)
+        self.set_properties(dict(results.items()))
+        return(self)
+
+    def update(self):
+        """ Actualizar la entidad """
+        entity = datastore.Entity(
+            key=self.key,
+            exclude_from_indexes=['notas'],
+            )
+        entity.update({
+            'uuid': self.uuid,
+            'creacion': self.creacion,
+            'nombre': self.nombre,
+            'notas': self.notas,
+            })
+        self.ds.put(entity)
+        return(True)
+
+    def create(self):
+        """ Crear una entidad """
+        self.key = self.ds.key('${2:kind}')
+        self.creacion = datetime.utcnow()
+        return(self.update())
+
+    def exists_uuid(self, uuid):
+        """ Revisar si existe un UUID """
+        ds = get_client()
+        query = self.ds.query(kind='${2:kind}')
+        query.add_filter('uuid', '=', uuid)
+        results = list(query.fetch())
+        return(len(results) > 0)
+
+    def __repr__(self):
+        return(f"<${1:ClassEntity} {self.nombre}>")
+
+]]></content>
+	<tabTrigger>dsModelsEntityRoot</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

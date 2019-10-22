@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/delete/<int:id>', methods=['GET', 'POST'])
+def delete(id):
+	${2:register} = ${3:Class}.query.get(id)
+	if ${2:register}.estatus == 'A':
+		${2:register}.delete()
+		flash(f"${4:title} {${2:register}.${5:name}} eliminada/o.", 'success')
+	return redirect(url_for('${1:decorator}.detail', id=id))
+
+
+]]></content>
+	<tabTrigger>flaskViewsDelete</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

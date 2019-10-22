@@ -1,0 +1,100 @@
+<snippet>
+	<content><![CDATA[
+from datetime import datetime
+from google.cloud import datastore
+from lib.datastore import get_client, from_datastore
+
+
+class ${1:ClassEntity}(object):
+
+	def __init__(self):
+		self.ds = get_client()
+		self.key = None
+		self.uuid = None
+		self.creacion = None
+		self.nombre = None
+		self.notas = None
+
+    def set_properties(self, properties):
+        """ Definir propiedades después de obtener """
+        if 'uuid' in properties:
+            self.uuid = properties['uuid']
+        if 'creacion' in properties:
+            self.creacion = properties['creacion']
+        if 'nombre' in properties:
+            self.nombre = properties['nombre']
+        if 'notas' in properties:
+            self.notas = properties['notas']
+
+    def get(self, key):
+        """ Obtener una entidad a partir de su clave """
+        results = self.ds.get(key)
+        if results == None:
+            return(None)
+        self.key = key
+        self.set_properties(dict(results.items()))
+        return(self)
+
+	def read(self, id):
+        """ Obtener una entidad a partir de su ID """
+		self.key = self.ds.key('${2:kind}', int(id))
+		results = self.ds.get(self.key)
+		if results == None:
+			return(None)
+        self.set_properties(dict(results.items()))
+		return(self)
+
+	def update(self):
+        """ Actualizar la entidad """
+		entity = datastore.Entity(
+			key=self.key,
+			exclude_from_indexes=['notas'],
+			)
+		entity.update({
+			'uuid': self.uuid,
+			'creacion': self.creacion,
+			'nombre': self.nombre,
+			'notas': self.notas,
+			})
+		self.ds.put(entity)
+		return(True)
+
+    def create(self):
+        """ Crear una entidad """
+        self.key = self.ds.key('${2:kind}')
+        self.creacion = datetime.utcnow()
+        return(self.update())
+
+	def exists_uuid(self, uuid):
+        """ Revisar si existe un UUID """
+		query = self.ds.query(kind='${2:kind}')
+		query.add_filter('uuid', '=', uuid)
+		results = list(query.fetch())
+		return(len(results) > 0)
+
+	def __repr__(self):
+		return("<${1:ClassEntity}>")
+
+
+class ${3:ClassEntities}(object):
+	""" ${3:ClassEntities} """
+
+	def list(self, limit=10, cursor=None):
+		query = self.ds.query(kind='${2:kind}')
+		query.order = ['-creacion']
+		query_iterator = query.fetch(limit=limit, start_cursor=cursor)
+		page = next(query_iterator.pages)
+		${4:entities_page} = list(map(from_datastore, page))
+		next_cursor = (
+			query_iterator.next_page_token.decode('utf-8')
+			if query_iterator.next_page_token else None
+			)
+		return(${4:entities_page}, next_cursor)
+
+	def __repr__(self):
+		return("<${3:ClassEntities}>")
+
+]]></content>
+	<tabTrigger>dsModels</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

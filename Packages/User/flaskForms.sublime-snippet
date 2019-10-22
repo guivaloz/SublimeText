@@ -1,0 +1,21 @@
+<snippet>
+	<content><![CDATA[
+from flask_wtf import FlaskForm
+from wtforms import DateTimeField, SelectField, TextAreaField, TextField
+from wtforms.validators import DataRequired, Length, Optional
+
+
+class ${1:ModuleForm}(FlaskForm):
+	nombre = TextField('Nombre', validators=[DataRequired(), Length(max=256)])
+    apertura = DateTimeField('Apertura', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
+    propiedad = SelectField('Propiedad', choices=[
+        ('uno', 'Uno'),
+        ('dos', 'Dos'),
+        ])
+	notas = TextAreaField('Notas', validators=[Optional(), Length(max=8192)])
+
+
+]]></content>
+	<tabTrigger>flaskForms</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

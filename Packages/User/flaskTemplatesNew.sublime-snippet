@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/new.html' as new with context %}
+{% import 'macros/form.html' as f with context %}
+
+{% block title %}${1:Title}{% endblock %}
+
+{% block description %}Agregar ${1:Title}.{% endblock %}
+
+{% block content %}
+		{{ new.breadcrumb(blueprint='${2:blueprint}', title='${1:Title}') }}
+		<div class="card">
+			<div class="card-header">Agregar ${1:Title}</div>
+			<div class="card-body">
+			{% call f.form_tag('${2:blueprint}.new') %}
+				{% call f.form_group(form.nombre) %}{% endcall %}
+				{% call f.form_group(form.notas, rows='4') %}{% endcall %}
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			{% endcall %}
+			</div>
+		</div>
+{% endblock %}
+
+]]></content>
+	<tabTrigger>flaskTemplatesNew</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/detail/<int:${2:ancestor_id}>/<int:id>')
+@role_required(['${5:Modulo}', '${6:ModuloAdmin}', 'Superusuario'])
+def detail(${2:ancestor_id}, id):
+	${3:entity} = ${4:ClassEntity}()
+	return render_template(
+		'${1:decorator}/detail.html',
+		${3:entity}=${3:entity}.read(${2:ancestor_id}, id),
+		cloudstorage=cloudstorage,
+		)
+
+
+]]></content>
+	<tabTrigger>dsViewsDetailAncestor</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

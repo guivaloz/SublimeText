@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/list.html' as list with context %}
+
+{% block title %}${1:Plural}{% endblock %}
+
+{% block description %}${1:Plural}.{% endblock %}
+
+{% block sidebar %}{% include '${2:decorator}/sidebar.html' %}{% endblock %}
+
+{% block content %}
+        <div class="mb-3 border-bottom">
+            <h2 class="h2">${1:Plural}</h2>
+        </div>
+		<div class="content-table">
+			{% if ${3:query}|length == 0 %}
+				No se encontraron ${3:query}.
+			{% else %}
+			<table id="datatable_${3:query}" class="table table-striped table-bordered table-sm">
+				<thead>
+					<tr>
+						<th>Descripciones</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for ${4:query} in ${3:query} %}
+					<tr>
+						<td>
+							<a href="{{ url_for('${2:decorator}.detail', usuario_email=${4:query}.key.parent.name, id=${4:query}.key.id) }}">{{ ${4:query}.nombre }}</a>
+							<a href="{{ url_for('${2:decorator}.edit', usuario_email=${4:query}.key.parent.name, id=${4:query}.key.id) }}"><i class="fas fa-pen" title="Modificar"></i></a>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+		</div>
+{% endblock %}
+
+{% block scripts %}
+{{ list.datatables_i18n_spanish('datatable_${3:query}') }}
+{% endblock %}
+
+]]></content>
+	<tabTrigger>dsTemplatesListDataTableAncestor</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

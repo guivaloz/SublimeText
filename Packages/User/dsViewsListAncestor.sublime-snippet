@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/<int:${2:ancestor}>')
+@role_required(['${6:Modulo}', '${7:ModuloAdmin}', 'Superusuario'])
+def list(${2:ancestor}):
+	${3:entities} = ${4:ClassEntities}()
+	${5:entities_page}, cursor = ${3:entities}.list(${2:ancestor})
+	return render_template(
+		'${1:decorator}/list.html',
+		${2:ancestor}=${2:ancestor},
+		${3:entities}=${5:entities_page},
+		cloudstorage=cloudstorage,
+		)
+
+
+]]></content>
+	<tabTrigger>dsViewsListAncestor</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

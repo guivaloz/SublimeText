@@ -1,0 +1,24 @@
+<snippet>
+    <content><![CDATA[
+class ${1:ClassEntity}(object):
+
+    def list(self, limit=100, cursor=None):
+        ds = get_client()
+        query = ds.query(kind='${2:kind}')
+        query.order = ['nombre']
+        query_iterator = query.fetch(limit=limit, start_cursor=cursor)
+        page = next(query_iterator.pages)
+        ${3:entities_page} = list(map(from_datastore, page))
+        next_cursor = (
+            query_iterator.next_page_token.decode('utf-8')
+            if query_iterator.next_page_token else None
+            )
+        return(${3:entities_page}, next_cursor)
+
+    def __repr__(self):
+        return("<${1:ClassEntity}>")
+
+]]></content>
+    <tabTrigger>dsModelsEntities</tabTrigger>
+    <scope>source.python</scope>
+</snippet>

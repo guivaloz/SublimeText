@@ -1,0 +1,13 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/detail/<int:id>')
+def detail(id):
+	${2:register} = ${3:Class}.query.get(id)
+	actions = { 'edit': True, 'status': ${2:register}.estatus }
+	return render_template('${1:decorator}/detail.html', ${2:register}=${2:register}, actions=actions)
+
+
+]]></content>
+	<tabTrigger>flaskViewsDetail</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

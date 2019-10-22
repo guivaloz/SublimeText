@@ -1,0 +1,27 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/detail.html' as detail with context %}
+
+{% block title %}${1:Title}{% endblock %}
+
+{% block description %}Detalle del/de la ${2:title}.{% endblock %}
+
+{% block content %}
+		{{ detail.breadcrumb(blueprint='${3:blueprint}', title='${1:Title}') }}
+		<div class="card">
+			<div class="card-header">{{ ${4:item}.nombre }}</div>
+			<div class="card-body">
+				<dl class="dl-horizontal">
+					{{ detail.property('Nombre', ${4:item}.nombre) }}
+					{{ detail.property('Notas', ${4:item}.notas) }}
+				</dl>
+			</div>
+			{{ detail.card_footer(blueprint='${3:blueprint}', id=${4:item}.id, actions=actions) }}
+		</div>
+{% endblock %}
+
+]]></content>
+	<tabTrigger>flaskTemplatesDetail</tabTrigger>
+	<scope>text.html</scope>
+</snippet>

@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/new', methods=['GET', 'POST'])
+def new():
+	form = ${2:ClassForm}()
+	if form.validate_on_submit():
+		${3:register} = ${4:Class}()
+		form.populate_obj(${3:register})
+		${3:register}.save()
+		flash(f"${5:title} {${3:register}.${6:name}} guardada/o.", 'success')
+		return redirect(url_for('${1:decorator}.new'))
+	return render_template('${1:decorator}/new.html', form=form)
+
+
+]]></content>
+	<tabTrigger>flaskViewsNew</tabTrigger>
+	<scope>source.python</scope>
+</snippet>

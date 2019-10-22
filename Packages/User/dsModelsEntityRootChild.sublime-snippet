@@ -1,0 +1,83 @@
+<snippet>
+    <content><![CDATA[
+class ${1:ClassEntity}(object):
+
+    def __init__(self):
+        self.ds = get_client()
+        self.key = None
+        self.uuid = None
+        self.${4:root_entity} = None
+        self.creacion = None
+        self.nombre = None
+        self.notas = None
+
+    def set_properties(self, properties):
+        """ Definir propiedades después de obtener """
+        if 'uuid' in properties:
+            self.uuid = properties['uuid']
+        if 'creacion' in properties:
+            self.creacion = properties['creacion']
+        if 'nombre' in properties:
+            self.nombre = properties['nombre']
+        if 'notas' in properties:
+            self.notas = properties['notas']
+
+    def get(self, key):
+        """ Obtener una entidad a partir de su clave """
+        results = self.ds.get(key)
+        if results == None:
+            return(None)
+        self.key = key
+        self.set_properties(dict(results.items()))
+        self.${4:root_entity} = ${5:RootClass}()
+        self.${4:root_entity}.get(self.key.parent)
+        return(self)
+
+    def read(self, root_id, id):
+        """ Obtener una entidad a partir del ID del padre y de su ID """
+        root_key = self.ds.key('${2:root_kind}', root_id)
+        self.key = self.ds.key('${3:kind}', int(id), parent=root_key)
+        results = self.ds.get(self.key)
+        if results == None:
+            return(None)
+        self.set_properties(dict(results.items()))
+        self.${4:root_entity} = ${5:RootClass}()
+        self.${4:root_entity}.get(root_key)
+        return(self)
+
+    def update(self):
+        """ Actualizar la entidad """
+        entity = datastore.Entity(
+            key=self.key,
+            exclude_from_indexes=['notas'],
+            )
+        entity.update({
+            'uuid': self.uuid,
+            'creacion': self.creacion,
+            'nombre': self.nombre,
+            'notas': self.notas,
+            })
+        self.ds.put(entity)
+        return(True)
+
+    def create(self, root_id):
+        """ Crear una entidad hija de una raíz """
+        root_key = self.ds.key('${2:root_kind}', root_id)
+        self.key = self.ds.key('${3:kind}', parent=root_key)
+        self.creacion = datetime.utcnow()
+        return(self.update())
+
+    def exists_uuid(self, uuid):
+        """ Revisar si existe un UUID """
+        query = self.ds.query(kind='${3:kind}')
+        query.add_filter('uuid', '=', uuid)
+        results = list(query.fetch())
+        return(len(results) > 0)
+
+    def __repr__(self):
+        return(f"<${1:ClassEntity} {self.nombre}>")
+
+]]></content>
+    <tabTrigger>dsModelsEntityRootChild</tabTrigger>
+    <scope>source.python</scope>
+</snippet>

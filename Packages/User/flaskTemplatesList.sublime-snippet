@@ -1,0 +1,39 @@
+<snippet>
+	<content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/list.html' as list with context %}
+
+{% block title %}${1:Title}{% endblock %}
+
+{% block description %}Listado de ${2:title}.{% endblock %}
+
+{% block content %}
+		{{ list.breadcrumb(title='${1:Title}') }}
+		<div class="card">
+			<div class="card-header">${1:Title} {% if actions['status'] == 'A' %}en uso{% else %}eliminadas{% endif %}</div>
+			{% if ${3:query}|length == 0 %}
+				{{ list.card_body_message('No se encontraron ${2:title}.') }}
+			{% else %}
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th>Nombres</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for ${4:instance} in ${3:query} %}
+					<tr>
+						<td><a href="{{ url_for('${5:blueprint}.detail', id=${4:instance}.id) }}">{{ ${4:instance}.nombre }}</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% endif %}
+			{{ list.card_footer(blueprint='${5:blueprint}', actions=actions) }}
+		</div>
+{% endblock %}
+
+]]></content>
+	<tabTrigger>flaskTemplatesList</tabTrigger>
+	<scope>text.html</scope>
+</snippet>
