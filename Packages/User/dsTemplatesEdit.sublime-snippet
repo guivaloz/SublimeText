@@ -8,10 +8,10 @@
 
 {% block description %}Modificar ${2:singular}.{% endblock %}
 
+{% block sidebar %}{% include '${2:decorator}/sidebar.html' %}{% endblock %}
+
 {% block content %}
-        <div class="mb-3 border-bottom">
-            <h2 class="h2">${1:Plural}</h2>
-        </div>
+{% include '${2:decorator}/header.html' %}
 		<div class="card content-card">
 			<div class="card-header">Modificar ${2:singular}</div>
 			<div class="card-body">

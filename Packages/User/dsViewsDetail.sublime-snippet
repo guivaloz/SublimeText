@@ -4,12 +4,12 @@
 @role_required(['${4:Modulo}', '${5:ModuloAdmin}', 'Superusuario'])
 def detail(id):
 	${2:entity} = ${3:ClassEntity}()
+    ${2:entity}.read(id)
 	return render_template(
 		'${1:decorator}/detail.html',
-		${2:entity}=${2:entity}.read(id),
+		${2:entity}=${2:entity},
 		cloudstorage=cloudstorage,
 		)
-
 
 ]]></content>
 	<tabTrigger>dsViewsDetail</tabTrigger>

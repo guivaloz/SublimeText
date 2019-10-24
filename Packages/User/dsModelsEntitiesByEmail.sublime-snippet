@@ -1,12 +1,14 @@
 <snippet>
     <content><![CDATA[
-class ${1:ClassEntity}(object):
+class ${1:ClassEntity}ByEmail(object):
 
-    def __init__(self):
+    def __init__(self, email):
         self.ds = get_client()
+        self.email = email
 
     def list(self, limit=100, cursor=None):
-        query = self.ds.query(kind='${2:kind}')
+        usuario_key = self.ds.key('usuarios', email)
+        query = self.ds.query(kind='${2:kind}', ancestor=usuario_key)
         # query.order = ['nombre']
         query_iterator = query.fetch(limit=limit, start_cursor=cursor)
         page = next(query_iterator.pages)
@@ -18,9 +20,9 @@ class ${1:ClassEntity}(object):
         return(${3:entities_page}, next_cursor)
 
     def __repr__(self):
-        return("<${1:ClassEntity}>")
+        return("<${1:ClassEntity}ByEmail>")
 
 ]]></content>
-    <tabTrigger>dsModelsEntities</tabTrigger>
+    <tabTrigger>dsModelsEntitiesByEmail</tabTrigger>
     <scope>source.python</scope>
 </snippet>

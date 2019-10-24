@@ -7,10 +7,10 @@
 
 {% block description %}Detalle de ${2:singular}.{% endblock %}
 
+{% block sidebar %}{% include '${3:decorator}/sidebar.html' %}{% endblock %}
+
 {% block content %}
-        <div class="mb-3 border-bottom">
-            <h2 class="h2">${1:Plural}</h2>
-        </div>
+{% include '${3:decorator}/header.html' %}
 		<div class="card content-card">
 			<div class="card-header">Detalle de ${2:singular}</div>
 			<div class="card-body">

@@ -10,7 +10,7 @@ def new(usuario_email):
 			flash('Ya se había enviado ese formulario. No se hace nada.', 'warning')
 		else:
 			form.populate_obj(${3:entity})
-			${3:entity}.update(usuario_email)
+			${3:entity}.create(usuario_email)
 			flash('${5:Item} nuevo.', 'success')
 		return redirect(url_for('usuarios.detail', id=usuario_email))
 	usuario = Usuario()
@@ -22,7 +22,6 @@ def new(usuario_email):
 		usuario=usuario,
 		cloudstorage=cloudstorage,
 		)
-
 
 ]]></content>
 	<tabTrigger>dsViewsNewAncestorByUsuario</tabTrigger>

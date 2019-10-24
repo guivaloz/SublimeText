@@ -1,0 +1,17 @@
+<snippet>
+    <content><![CDATA[
+@${1:decorator}.route('/${1:decorator}/email/<email>')
+@role_required(['${5:Modulo}', '${6:ModuloAdmin}', 'Superusuario'])
+def list_by_email(email):
+    ${2:entities} = ${3:ClassEntitiesByEmail}(email)
+    ${4:entities_page}, cursor = ${2:entities}.list()
+    return render_template(
+        '${1:decorator}/list.html',
+        ${2:entities}=${4:entities_page},
+        cloudstorage=cloudstorage,
+        )
+
+]]></content>
+    <tabTrigger>dsViewsListByEmail</tabTrigger>
+    <scope>source.python</scope>
+</snippet>

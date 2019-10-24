@@ -10,7 +10,6 @@ def detail(${2:ancestor_id}, id):
 		cloudstorage=cloudstorage,
 		)
 
-
 ]]></content>
 	<tabTrigger>dsViewsDetailAncestor</tabTrigger>
 	<scope>source.python</scope>

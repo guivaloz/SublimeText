@@ -10,14 +10,6 @@ class ${1:ClassEntityForm}(FlaskForm):
 	uuid = HiddenField('UUID')
 	nombre = StringField('Nombre', validators=[DataRequired(), Length(2, 256)])
 	notas = TextAreaField('Notas', validators=[Optional(), Length(max=8192)])
-	"""
-	apertura = DateTimeField('Apertura', format='%Y-%m-%d %H:%M:%S', validators=[DataRequired()])
-	propiedad = SelectField('Propiedad', choices=[
-		('uno', 'Uno'),
-		('dos', 'Dos'),
-		])
-	"""
-
 
 ]]></content>
 	<tabTrigger>dsForms</tabTrigger>

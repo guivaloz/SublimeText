@@ -10,7 +10,7 @@ def new(${2:ancestor_id}):
 			flash('Ya se había enviado ese formulario. No se hace nada.', 'warning')
 		else:
 			form.populate_obj(${4:entity})
-			${4:entity}.update(${2:ancestor_id})
+			${4:entity}.create(${2:ancestor_id})
 			flash('${6:Item} nuevo.', 'success')
 		return redirect(url_for('${7:ancestor_decorator}.detail', id=${2:ancestor_id}))
 	${8:ancestor} = ${9:ClassAncestor}()
@@ -22,7 +22,6 @@ def new(${2:ancestor_id}):
 		${8:ancestor}=${8:ancestor},
 		cloudstorage=cloudstorage,
 		)
-
 
 ]]></content>
 	<tabTrigger>dsViewsNewAncestor</tabTrigger>

@@ -1,20 +1,20 @@
 <snippet>
 	<content><![CDATA[
-@${1:decorator}.route('/${1:decorator}/edit/<int:id>', methods=['GET', 'POST'])
-@role_required(['${6:ModuloAdmin}'])
-def edit(id):
+@${1:decorator}.route('/${1:decorator}/edit/<${5:id}>', methods=['GET', 'POST'])
+@role_required(['${7:ModuloAdmin}'])
+def edit(${5:id}):
 	${2:entity} = ${3:ClassEntity}()
-	${2:entity}.read(id)
+	${2:entity}.read(${5:id})
 	form = ${4:ClassEntityForm}()
 	if form.validate_on_submit():
 		if ${2:entity}.uuid == form.uuid.data:
 			form.populate_obj(${2:entity})
 			${2:entity}.uuid = str(uuid.uuid4())
 			${2:entity}.update()
-			flash('${5:Item} modificado.', 'success')
+			flash('${6:Item} modificado.', 'success')
 		else:
 			flash('Ya se había enviado ese formulario. No se hace nada.', 'warning')
-		return redirect(url_for('${1:decorator}.detail', id=id))
+		return redirect(url_for('${1:decorator}.detail', ${5:id}=${5:id}))
 	form.process(obj=${2:entity})
 	return render_template(
 		'${1:decorator}/edit.html',
@@ -22,7 +22,6 @@ def edit(id):
 		${2:entity}=${2:entity},
 		cloudstorage=cloudstorage,
 		)
-
 
 ]]></content>
 	<tabTrigger>dsViewsEdit</tabTrigger>

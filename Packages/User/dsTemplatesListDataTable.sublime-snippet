@@ -10,9 +10,7 @@
 {% block sidebar %}{% include '${2:decorator}/sidebar.html' %}{% endblock %}
 
 {% block content %}
-        <div class="mb-3 border-bottom">
-            <h2 class="h2">${1:Plural}</h2>
-        </div>
+{% include '${2:decorator}/header.html' %}
 		<div class="content-table">
 			{% if ${3:query}|length == 0 %}
 				No se encontraron ${3:query}.

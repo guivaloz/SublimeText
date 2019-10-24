@@ -12,7 +12,6 @@ def list(${2:ancestor}):
 		cloudstorage=cloudstorage,
 		)
 
-
 ]]></content>
 	<tabTrigger>dsViewsListAncestor</tabTrigger>
 	<scope>source.python</scope>

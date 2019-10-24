@@ -10,7 +10,7 @@ def new():
 			flash('Ya se había enviado ese formulario. No se hace nada.', 'warning')
 		else:
 			form.populate_obj(${3:entity})
-			${3:entity}.update()
+			${3:entity}.create()
 			flash('${5:Item} nuevo.', 'success')
 		return redirect(url_for('${1:decorator}.list'))
 	form.uuid.data = str(uuid.uuid4())
@@ -19,7 +19,6 @@ def new():
 		form=form,
 		cloudstorage=cloudstorage,
 		)
-
 
 ]]></content>
 	<tabTrigger>dsViewsNew</tabTrigger>
