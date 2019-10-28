@@ -13,6 +13,7 @@ def detail(id):
 		cloudstorage=cloudstorage,
 		)
 
+
 ]]></content>
 	<tabTrigger>dsViewsDetailDecendants</tabTrigger>
 	<scope>source.python</scope>

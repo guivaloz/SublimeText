@@ -20,6 +20,7 @@ class ${1:ClassEntity}(object):
     def __repr__(self):
         return("<${1:ClassEntity}>")
 
+
 ]]></content>
     <tabTrigger>dsModelsEntities</tabTrigger>
     <scope>source.python</scope>

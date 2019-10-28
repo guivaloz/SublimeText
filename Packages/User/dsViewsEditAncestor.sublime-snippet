@@ -23,6 +23,7 @@ def edit(${2:ancestor_id}, id):
 		cloudstorage=cloudstorage,
 		)
 
+
 ]]></content>
 	<tabTrigger>dsViewsEditAncestor</tabTrigger>
 	<scope>source.python</scope>

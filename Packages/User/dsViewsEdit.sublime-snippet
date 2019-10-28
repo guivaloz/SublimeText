@@ -23,6 +23,7 @@ def edit(${5:id}):
 		cloudstorage=cloudstorage,
 		)
 
+
 ]]></content>
 	<tabTrigger>dsViewsEdit</tabTrigger>
 	<scope>source.python</scope>
