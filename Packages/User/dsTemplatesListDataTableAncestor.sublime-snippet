@@ -11,7 +11,7 @@
 
 {% block content %}
 {% include '${2:decorator}/header.html' %}
-		<div class="content-table">
+		<div class="table-responsive">
 			{% if ${3:query}|length == 0 %}
 				No se encontraron ${3:query}.
 			{% else %}
