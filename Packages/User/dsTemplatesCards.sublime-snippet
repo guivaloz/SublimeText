@@ -1,0 +1,43 @@
+<snippet>
+    <content><![CDATA[
+{% extends 'layouts/app.html' %}
+{% import 'macros/startbootstrap.html' as sbadmin2 with context %}
+
+{% block title %}${1:Plural}{% endblock %}
+
+{% block description %}{{ pagina_descripcion }}.{% endblock %}
+
+{% block sidebar %}{{ sbadmin2.sidebar(active_section='Informática') }}{% endblock %}
+
+{% block content %}
+    {{ sbadmin2.page_heading('${1:Plural}', pagina_descripcion) }}
+    {% if ${2:grupos}|length > 0 %}
+        <div class="row">
+        {% for ${3:grupo} in ${2:grupos} %}
+            <div class="col-lg-3">
+                <div class="card shadow mb-3">
+                    <div class="card-header py-2">
+                        <h6 class="m-0 font-weight-bold">
+                            {{ ${3:grupo} }}
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                        {% for ${5:entity} in ${4:query} -%}
+                            {%- if ${5:entity}.${3:grupo} == ${3:grupo} -%}
+                                <li><a href="{{ url_for('${6:decorator}.detail', key=${5:entity}.key.id) }}"> {{ ${5:entity}.nombre }}</a></li>
+                            {%- endif -%}
+                        {%- endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
+
+]]></content>
+    <tabTrigger>dsTemplatesCards</tabTrigger>
+    <scope>text.html</scope>
+</snippet>

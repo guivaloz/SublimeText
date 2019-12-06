@@ -2,6 +2,7 @@
 	<content><![CDATA[
 {% extends 'layouts/app.html' %}
 {% import 'macros/detail.html' as detail with context %}
+{% import 'macros/startbootstrap.html' as sbadmin2 with context %}
 
 {% block title %}${1:Plural}{% endblock %}
 

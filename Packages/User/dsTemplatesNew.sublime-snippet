@@ -3,6 +3,7 @@
 {% extends 'layouts/app.html' %}
 {% import 'macros/new.html' as new with context %}
 {% import 'macros/form.html' as f with context %}
+{% import 'macros/startbootstrap.html' as sbadmin2 with context %}
 
 {% block title %}${1:Plural}{% endblock %}
 
